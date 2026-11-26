@@ -1,0 +1,15 @@
+[
+  { "type": "income",  "amount": 2100, "currency": "UAH", "category": "stipend",   "date": "2026-11-03", "comment": "Стипендія за листопад" },
+  { "type": "income",  "amount": 11000, "currency": "UAH", "category": "job",       "date": "2026-11-05", "comment": "Оплата за SMM-проєкт" },
+  { "type": "expense", "amount": 6500, "currency": "UAH", "category": "rent",      "date": "2026-11-05", "comment": "Оренда кімнати" },
+  { "type": "expense", "amount": 1240, "currency": "UAH", "category": "food",      "date": "2026-11-07", "comment": "Продукти на тиждень" },
+  { "type": "expense", "amount": 250,  "currency": "UAH", "category": "internet",  "date": "2026-11-08", "comment": "Мобільний тариф" },
+  { "type": "expense", "amount": 49,   "currency": "USD", "category": "study",     "date": "2026-11-10", "comment": "Підписка на онлайн-курс" },
+  { "type": "expense", "amount": 520,  "currency": "UAH", "category": "transport", "date": "2026-11-12", "comment": "Поповнення транспортної картки" },
+  { "type": "expense", "amount": 1380, "currency": "UAH", "category": "food",      "date": "2026-11-14", "comment": "Продукти" },
+  { "type": "expense", "amount": 60,   "currency": "PLN", "category": "fun",       "date": "2026-11-16", "comment": "Квиток на концерт онлайн" },
+  { "type": "expense", "amount": 310,  "currency": "UAH", "category": "transport", "date": "2026-11-19", "comment": "Таксі після пар" },
+  { "type": "expense", "amount": 1150, "currency": "UAH", "category": "food",      "date": "2026-11-21", "comment": "Продукти і кава" },
+  { "type": "income",  "amount": 50,   "currency": "EUR", "category": "gift",      "date": "2026-11-22", "comment": "Подарунок" },
+  { "type": "expense", "amount": 640,  "currency": "UAH", "category": "fun",       "date": "2026-11-24", "comment": "Кіно з друзями" }
+]
