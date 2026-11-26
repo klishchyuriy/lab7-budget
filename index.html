@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бюджет студента — ЛР 7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <div class="brand">
+        <h1>Бюджет студента</h1>
+        <p>Доходи й витрати за місяць з перерахунком валют за курсом НБУ</p>
+      </div>
+      <label class="period">
+        <span>Місяць</span>
+        <input type="month" id="period">
+      </label>
+    </div>
+    <div class="wrap">
+      <p class="rates" id="rates">Завантажуємо курси НБУ…</p>
+    </div>
+  </header>
+
+  <main class="wrap layout">
+    <section class="panel balance-panel" aria-labelledby="balance-title">
+      <h2 id="balance-title" class="visually-hidden">Підсумки</h2>
+      <div class="balance">
+        <span class="label">Залишок за місяць</span>
+        <strong id="balance">0 ₴</strong>
+      </div>
+      <dl class="totals">
+        <div><dt>Доходи</dt><dd id="income-total" class="plus">0 ₴</dd></div>
+        <div><dt>Витрати</dt><dd id="expense-total" class="minus">0 ₴</dd></div>
+        <div><dt>Операцій</dt><dd id="count">0</dd></div>
+      </dl>
+    </section>
+
+    <section class="panel form-panel" aria-labelledby="form-title">
+      <h2 id="form-title">Нова операція</h2>
+      <form id="op-form" novalidate>
+        <fieldset class="type-switch">
+          <legend class="visually-hidden">Тип операції</legend>
+          <label><input type="radio" name="type" value="expense" checked><span>Витрата</span></label>
+          <label><input type="radio" name="type" value="income"><span>Дохід</span></label>
+        </fieldset>
+
+        <div class="row">
+          <div class="field grow">
+            <label for="amount">Сума</label>
+            <input type="number" id="amount" name="amount" step="0.01" min="0" placeholder="0.00">
+            <small class="error-msg" data-for="amount"></small>
+          </div>
+          <div class="field">
+            <label for="currency">Валюта</label>
+            <select id="currency" name="currency">
+              <option value="UAH">UAH</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="PLN">PLN</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="category">Категорія</label>
+          <select id="category" name="category"></select>
+          <small class="error-msg" data-for="category"></small>
+        </div>
+
+        <div class="field">
+          <label for="date">Дата</label>
+          <input type="date" id="date" name="date">
+          <small class="error-msg" data-for="date"></small>
+        </div>
+
+        <div class="field">
+          <label for="comment">Коментар</label>
+          <input type="text" id="comment" name="comment" maxlength="60" placeholder="Напр. продукти на тиждень">
+        </div>
+
+        <p class="preview" id="preview"></p>
+        <button type="submit" class="btn primary">Додати операцію</button>
+      </form>
+    </section>
+
+    <section class="panel chart-panel" aria-labelledby="chart-title">
+      <h2 id="chart-title">Витрати за категоріями</h2>
+      <p class="sub">Смуга показує, яку частину місячного ліміту вже витрачено</p>
+      <div id="chart" class="chart"></div>
+      <p class="insight" id="insight"></p>
+    </section>
+
+    <section class="panel list-panel" aria-labelledby="list-title">
+      <div class="list-head">
+        <h2 id="list-title">Операції</h2>
+        <div class="actions">
+          <button type="button" class="btn" id="export">Завантажити CSV</button>
+          <button type="button" class="btn ghost" id="clear">Очистити все</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input type="search" id="search" placeholder="Пошук за коментарем" aria-label="Пошук за коментарем">
+        <select id="filter-type" aria-label="Тип">
+          <option value="all">Усі типи</option>
+          <option value="income">Доходи</option>
+          <option value="expense">Витрати</option>
+        </select>
+        <select id="filter-category" aria-label="Категорія">
+          <option value="all">Усі категорії</option>
+        </select>
+        <select id="sort" aria-label="Сортування">
+          <option value="date-desc">Спочатку нові</option>
+          <option value="date-asc">Спочатку старі</option>
+          <option value="sum-desc">Спочатку більші</option>
+          <option value="sum-asc">Спочатку менші</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Категорія</th>
+              <th>Коментар</th>
+              <th class="num">Сума</th>
+              <th class="num">У гривнях</th>
+              <th><span class="visually-hidden">Дії</span></th>
+            </tr>
+          </thead>
+          <tbody id="ops"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="empty" hidden>
+        <p>За цей місяць операцій немає. Додайте першу через форму або заповніть прикладом.</p>
+        <button type="button" class="btn" id="demo">Заповнити прикладом</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    Лабораторна робота №7 з Web-технологій. Кліщ Юрій, група ІА-401, КНЕУ, 2026
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
